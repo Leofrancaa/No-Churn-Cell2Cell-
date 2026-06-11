@@ -1,0 +1,180 @@
+
+================================================================================
+1. DIMENSOES E TIPOS
+================================================================================
+Linhas: 51,047 | Colunas: 58
+Memoria: 85.2 MB
+
+Distribuicao de tipos:
+float64    26
+object     23
+int64       9
+
+================================================================================
+2. ALVO (Churn)
+================================================================================
+       contagem  proporcao
+Churn                     
+No        36336     0.7118
+Yes       14711     0.2882
+
+================================================================================
+3. VALORES FALTANTES
+================================================================================
+                       qtd_nan   pct
+AgeHH2                     909  1.78
+AgeHH1                     909  1.78
+PercChangeRevenues         367  0.72
+PercChangeMinutes          367  0.72
+MonthlyRevenue             156  0.31
+MonthlyMinutes             156  0.31
+RoamingCalls               156  0.31
+OverageMinutes             156  0.31
+DirectorAssistedCalls      156  0.31
+TotalRecurringCharge       156  0.31
+ServiceArea                 24  0.05
+Handsets                     1  0.00
+CurrentEquipmentDays         1  0.00
+HandsetModels                1  0.00
+
+================================================================================
+4. VALORES 'FALTANTES DISFARCADOS' EM CATEGORICAS
+================================================================================
+Homeownership: {'known': 33987, 'unknown': 17060}
+HandsetPrice: {'unknown': 28982}
+MaritalStatus: {'unknown': 19700}
+
+================================================================================
+5. CARDINALIDADE DAS CATEGORICAS
+================================================================================
+ServiceArea                747
+HandsetPrice                16
+Occupation                   8
+CreditRating                 7
+PrizmCode                    4
+MaritalStatus                3
+Churn                        2
+RVOwner                      2
+TruckOwner                   2
+HandsetWebCapable            2
+HandsetRefurbished           2
+ChildrenInHH                 2
+Homeownership                2
+RespondsToMailOffers         2
+BuysViaMailOrder             2
+NewCellphoneUser             2
+HasCreditCard                2
+OwnsComputer                 2
+NonUSTravel                  2
+OptOutMailings               2
+MadeCallToRetentionTeam      2
+NotNewCellphoneUser          2
+OwnsMotorcycle               2
+
+Valores unicos (colunas com ate 12 categorias):
+  Churn: ['No', 'Yes']
+  ChildrenInHH: ['No', 'Yes']
+  HandsetRefurbished: ['No', 'Yes']
+  HandsetWebCapable: ['No', 'Yes']
+  TruckOwner: ['No', 'Yes']
+  RVOwner: ['No', 'Yes']
+  Homeownership: ['Known', 'Unknown']
+  BuysViaMailOrder: ['No', 'Yes']
+  RespondsToMailOffers: ['No', 'Yes']
+  OptOutMailings: ['No', 'Yes']
+  NonUSTravel: ['No', 'Yes']
+  OwnsComputer: ['No', 'Yes']
+  HasCreditCard: ['No', 'Yes']
+  NewCellphoneUser: ['No', 'Yes']
+  NotNewCellphoneUser: ['No', 'Yes']
+  OwnsMotorcycle: ['No', 'Yes']
+  MadeCallToRetentionTeam: ['No', 'Yes']
+  CreditRating: ['1-Highest', '2-High', '3-Good', '4-Medium', '5-Low', '6-VeryLow', '7-Lowest']
+  PrizmCode: ['Other', 'Rural', 'Suburban', 'Town']
+  Occupation: ['Clerical', 'Crafts', 'Homemaker', 'Other', 'Professional', 'Retired', 'Self', 'Student']
+  MaritalStatus: ['No', 'Unknown', 'Yes']
+
+================================================================================
+6. ESTATISTICAS DAS NUMERICAS
+================================================================================
+                             count        mean        std         min         25%         50%         75%         max
+CustomerID                 51047.0  3201956.88  116905.56  3000002.00  3100632.00  3201534.00  3305376.00  3399994.00
+MonthlyRevenue             50891.0       58.83      44.51       -6.17       33.61       48.46       71.06     1223.38
+MonthlyMinutes             50891.0      525.65     529.87        0.00      158.00      366.00      723.00     7359.00
+TotalRecurringCharge       50891.0       46.83      23.85      -11.00       30.00       45.00       60.00      400.00
+DirectorAssistedCalls      50891.0        0.90       2.23        0.00        0.00        0.25        0.99      159.39
+OverageMinutes             50891.0       40.03      96.59        0.00        0.00        3.00       41.00     4321.00
+RoamingCalls               50891.0        1.24       9.82        0.00        0.00        0.00        0.30     1112.40
+PercChangeMinutes          50680.0      -11.55     257.51    -3875.00      -83.00       -5.00       66.00     5192.00
+PercChangeRevenues         50680.0       -1.19      39.57    -1107.70       -7.10       -0.30        1.60     2483.50
+DroppedCalls               51047.0        6.01       9.04        0.00        0.70        3.00        7.70      221.70
+BlockedCalls               51047.0        4.09      10.95        0.00        0.00        1.00        3.70      384.30
+UnansweredCalls            51047.0       28.29      38.88        0.00        5.30       16.30       36.30      848.70
+CustomerCareCalls          51047.0        1.87       5.10        0.00        0.00        0.00        1.70      327.30
+ThreewayCalls              51047.0        0.30       1.17        0.00        0.00        0.00        0.30       66.00
+ReceivedCalls              51047.0      114.80     166.49        0.00        8.30       52.80      153.50     2692.40
+OutboundCalls              51047.0       25.38      35.21        0.00        3.30       13.70       34.00      644.30
+InboundCalls               51047.0        8.18      16.67        0.00        0.00        2.00        9.30      519.30
+PeakCallsInOut             51047.0       90.55     104.95        0.00       23.00       62.00      121.30     2090.70
+OffPeakCallsInOut          51047.0       67.65      92.75        0.00       11.00       35.70       88.70     1474.70
+DroppedBlockedCalls        51047.0       10.16      15.56        0.00        1.70        5.30       12.30      411.70
+CallForwardingCalls        51047.0        0.01       0.59        0.00        0.00        0.00        0.00       81.30
+CallWaitingCalls           51047.0        1.84       5.59        0.00        0.00        0.30        1.30      212.70
+MonthsInService            51047.0       18.76       9.80        6.00       11.00       16.00       24.00       61.00
+UniqueSubs                 51047.0        1.53       1.22        1.00        1.00        1.00        2.00      196.00
+ActiveSubs                 51047.0        1.35       0.68        0.00        1.00        1.00        2.00       53.00
+Handsets                   51046.0        1.81       1.33        1.00        1.00        1.00        2.00       24.00
+HandsetModels              51046.0        1.56       0.91        1.00        1.00        1.00        2.00       15.00
+CurrentEquipmentDays       51046.0      380.55     253.80       -5.00      205.00      329.00      515.00     1812.00
+AgeHH1                     50138.0       31.34      22.09        0.00        0.00       36.00       48.00       99.00
+AgeHH2                     50138.0       21.14      23.93        0.00        0.00        0.00       42.00       99.00
+RetentionCalls             51047.0        0.04       0.21        0.00        0.00        0.00        0.00        4.00
+RetentionOffersAccepted    51047.0        0.02       0.14        0.00        0.00        0.00        0.00        3.00
+ReferralsMadeBySubscriber  51047.0        0.05       0.31        0.00        0.00        0.00        0.00       35.00
+IncomeGroup                51047.0        4.32       3.14        0.00        0.00        5.00        7.00        9.00
+AdjustmentsToCreditRating  51047.0        0.05       0.38        0.00        0.00        0.00        0.00       25.00
+
+================================================================================
+7. PROBLEMAS DE QUALIDADE
+================================================================================
+CustomerID duplicados: 0
+Linhas inteiras duplicadas: 0
+
+Valores negativos suspeitos em MonthlyRevenue: 3
+Valores negativos suspeitos em TotalRecurringCharge: 8
+Valores negativos suspeitos em CurrentEquipmentDays: 76
+
+HandsetPrice e texto; valores: {'Unknown': 28982, '30': 7328, '150': 4115, '130': 2105, '80': 1960, '10': 1928, '60': 1776, '200': 1266, '100': 1235, '40': 249, '400': 46, '250': 20, '300': 13, '180': 10, '500': 8}
+
+================================================================================
+8. TAXA DE CHURN POR FAIXA (variaveis-chave)
+================================================================================
+
+--- MonthsInService ---
+                  mean  count
+MonthsInService              
+(5.999, 11.0]    0.240  14238
+(11.0, 16.0]     0.341  11396
+(16.0, 24.0]     0.298  12763
+(24.0, 61.0]     0.285  12650
+
+--- MonthlyRevenue ---
+                    mean  count
+MonthlyRevenue                 
+(-6.171, 33.61]    0.314  12728
+(33.61, 48.46]     0.271  12721
+(48.46, 71.065]    0.286  12719
+(71.065, 1223.38]  0.279  12723
+
+--- CurrentEquipmentDays ---
+                       mean  count
+CurrentEquipmentDays              
+(-5.001, 205.0]       0.220  12827
+(205.0, 329.0]        0.247  12712
+(329.0, 515.0]        0.349  12762
+(515.0, 1812.0]       0.337  12745
+
+--- RetentionCalls ---
+                 mean  count
+RetentionCalls              
+(-0.001, 4.0]   0.288  51047

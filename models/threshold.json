@@ -1,0 +1,4 @@
+{
+  "threshold": 0.25,
+  "criterio": "max F2 (out-of-fold)"
+}
