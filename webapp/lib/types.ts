@@ -48,3 +48,67 @@ export interface DashboardData {
   ranking: ClienteRanking[];
   metricas: Metricas;
 }
+
+export interface FatorShap {
+  variavel: string;
+  rotulo: string;
+  shap: number;
+  valor: number;
+}
+
+export interface ClienteFila {
+  CustomerID: number;
+  prob: number;
+  rank: number;
+  segmento: string;
+  acao_nome: string;
+  taxa_esperada: number;
+}
+
+export interface ClienteDetalhe extends ClienteFila {
+  acao: string;
+  fatores: FatorShap[];
+}
+
+export interface Acao {
+  id: string;
+  nome: string;
+  custo: number;
+}
+
+export interface LinhaPolitica {
+  acao: string;
+  tentativas: number;
+  aceites: number;
+  taxa_estimada: number;
+  taxa_real_oculta: number;
+}
+
+export interface PontoCurva {
+  rodada: number;
+  taxa_aceite: number;
+  regret_medio: number;
+}
+
+export interface Retencao {
+  acoes: Acao[];
+  segmentos: string[];
+  distribuicao_segmentos: Record<string, number>;
+  politica: Record<string, LinhaPolitica[]>;
+  melhor_acao: Record<string, string>;
+  curva: PontoCurva[];
+  rodadas: number;
+}
+
+export interface ShapGlobal {
+  variavel: string;
+  rotulo: string;
+  impacto_medio: number;
+}
+
+export interface AnalistaData {
+  meta: Meta;
+  fila: ClienteFila[];
+  retencao: Retencao;
+  shap_global: ShapGlobal[];
+}

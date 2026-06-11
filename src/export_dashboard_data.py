@@ -24,7 +24,11 @@ BASE = Path(__file__).resolve().parents[1]
 SCORES_PATH = BASE / "data" / "processed" / "scores_teste.csv"
 THRESHOLD_PATH = BASE / "models" / "threshold.json"
 XGB_PATH = BASE / "models" / "xgb_model.json"
+SHAP_PATH = BASE / "data" / "processed" / "shap_teste.json"
+RETENCAO_PATH = BASE / "data" / "processed" / "retencao.json"
 OUT_PATH = BASE / "webapp" / "api" / "_dashboard_data.py"
+
+TOP_CLIENTES_DETALHE = 1000
 
 
 def curva_roc_reduzida(y: np.ndarray, proba: np.ndarray, max_pontos: int = 200) -> list:
@@ -53,9 +57,34 @@ def importancias_xgb(top: int = 20) -> list:
     return [{"variavel": nome, "ganho": round(float(v), 2)} for nome, v in ordenado]
 
 
+def detalhe_clientes(df: pd.DataFrame, shap_dados: dict,
+                     retencao: dict) -> dict:
+    """Detalhe (fatores SHAP + segmento + acao) do topo do ranking."""
+    detalhe = {}
+    topo = df.sort_values("prob_churn", ascending=False).head(TOP_CLIENTES_DETALHE)
+    for rank, linha in enumerate(topo.itertuples(index=False), start=1):
+        cid = str(int(linha.CustomerID))
+        cliente_shap = shap_dados["clientes"].get(cid)
+        cliente_ret = retencao["clientes"].get(cid)
+        if cliente_shap is None or cliente_ret is None:
+            continue
+        detalhe[cid] = {
+            "prob": round(float(linha.prob_churn), 4),
+            "rank": rank,
+            "segmento": cliente_ret["segmento"],
+            "acao": cliente_ret["acao"],
+            "acao_nome": cliente_ret["acao_nome"],
+            "taxa_esperada": cliente_ret["taxa_esperada"],
+            "fatores": cliente_shap["fatores"],
+        }
+    return detalhe
+
+
 def main() -> None:
     df = pd.read_csv(SCORES_PATH)
     threshold = json.loads(THRESHOLD_PATH.read_text(encoding="utf-8"))["threshold"]
+    shap_dados = json.loads(SHAP_PATH.read_text(encoding="utf-8"))
+    retencao = json.loads(RETENCAO_PATH.read_text(encoding="utf-8"))
 
     dados = {
         "meta": {
@@ -72,6 +101,11 @@ def main() -> None:
         "distribuicao": histograma_por_classe(df),
         "importancias": importancias_xgb(),
         "ranking": df.head(100).to_dict(orient="records"),
+        "shap_global": shap_dados["global"],
+        "retencao": {chave: retencao[chave] for chave in (
+            "acoes", "segmentos", "distribuicao_segmentos", "politica",
+            "melhor_acao", "curva", "rodadas")},
+        "clientes_detalhe": detalhe_clientes(df, shap_dados, retencao),
     }
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)

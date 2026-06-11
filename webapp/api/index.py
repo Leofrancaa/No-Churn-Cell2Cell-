@@ -126,3 +126,38 @@ def metrics(request: Request, threshold: float = 0.25) -> dict:
     if not 0.0 < threshold < 1.0:
         raise HTTPException(status_code=422, detail="threshold deve estar entre 0 e 1")
     return metricas_no_threshold(round(threshold, 2))
+
+
+@app.get("/api/py/analista")
+def analista(request: Request) -> dict:
+    """Dados da visao do analista: fila de retencao, politica e curvas."""
+    exigir_sessao(request)
+    detalhe = DATA["clientes_detalhe"]
+    fila = [{
+        "CustomerID": int(cid),
+        "prob": info["prob"],
+        "rank": info["rank"],
+        "segmento": info["segmento"],
+        "acao_nome": info["acao_nome"],
+        "taxa_esperada": info["taxa_esperada"],
+    } for cid, info in detalhe.items()]
+    fila.sort(key=lambda c: c["rank"])
+    return {
+        "meta": DATA["meta"],
+        "fila": fila[:200],
+        "retencao": DATA["retencao"],
+        "shap_global": DATA["shap_global"],
+    }
+
+
+@app.get("/api/py/cliente/{customer_id}")
+def cliente(request: Request, customer_id: int) -> dict:
+    """Detalhe individual: fatores SHAP, segmento e acao recomendada."""
+    exigir_sessao(request)
+    info = DATA["clientes_detalhe"].get(str(customer_id))
+    if info is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Cliente fora do topo do ranking (detalhe disponivel "
+                   f"para os {len(DATA['clientes_detalhe'])} maiores riscos)")
+    return {"CustomerID": customer_id, **info}

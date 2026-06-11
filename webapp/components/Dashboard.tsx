@@ -2,6 +2,7 @@
 
 import KpiCard from "@/components/KpiCard";
 import MatrizConfusao from "@/components/MatrizConfusao";
+import NavBar from "@/components/NavBar";
 import {
   GraficoDistribuicao,
   GraficoImportancias,
@@ -60,11 +61,6 @@ export default function Dashboard() {
     }, 250);
   }
 
-  async function sair() {
-    await fetch("/api/py/logout", { method: "POST" });
-    router.push("/login");
-  }
-
   if (erro) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-slate-950">
@@ -84,24 +80,17 @@ export default function Dashboard() {
   const { meta } = dados;
 
   return (
-    <main className="min-h-screen bg-slate-950 px-6 py-8 text-slate-100">
+    <main className="min-h-screen bg-slate-950 px-6 py-6 text-slate-100">
       <div className="mx-auto max-w-6xl">
-        <header className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold">
-              📡 Retenção Cell2Cell — Engenheiro de IA
-            </h1>
-            <p className="mt-1 text-sm text-slate-400">
-              Diagnóstico do XGBoost em {meta.n_teste.toLocaleString("pt-BR")}{" "}
-              clientes de teste (nunca vistos no treino)
-            </p>
-          </div>
-          <button
-            onClick={sair}
-            className="rounded-lg border border-slate-700 px-3 py-1.5 text-sm text-slate-300 transition hover:bg-slate-800"
-          >
-            Sair
-          </button>
+        <NavBar />
+        <header className="mt-5">
+          <h1 className="text-2xl font-semibold">
+            🔧 Diagnóstico do modelo de previsão
+          </h1>
+          <p className="mt-1 text-sm text-slate-400">
+            XGBoost avaliado em {meta.n_teste.toLocaleString("pt-BR")} clientes
+            de teste (nunca vistos no treino)
+          </p>
         </header>
 
         <section className="mt-6 rounded-xl border border-slate-800 bg-slate-900 p-5">
