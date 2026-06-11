@@ -1,5 +1,6 @@
 "use client";
 
+import Campanha from "@/components/Campanha";
 import NavBar from "@/components/NavBar";
 import PainelCliente from "@/components/PainelCliente";
 import Simulacao from "@/components/Simulacao";
@@ -144,6 +145,8 @@ export default function Analista() {
             carregando={carregandoCliente}
           />
         </div>
+
+        <Campanha />
 
         <Simulacao retencao={dados.retencao} />
 

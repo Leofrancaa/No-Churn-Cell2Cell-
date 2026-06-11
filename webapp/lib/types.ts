@@ -112,3 +112,37 @@ export interface AnalistaData {
   retencao: Retencao;
   shap_global: ShapGlobal[];
 }
+
+export interface ResultadoOferta {
+  CustomerID: number;
+  segmento: string;
+  acao: string;
+  acao_nome: string;
+  custo: number;
+  aceitou: boolean;
+  risco_antes: number;
+  risco_depois: number;
+  reducao_risco_aceite: number;
+  alternativas: string[];
+}
+
+export interface SegmentoCampanha {
+  segmento: string;
+  acao_nome: string;
+  clientes: number;
+  aceites_esperados: number;
+  salvos_esperados: number;
+  custo: number;
+}
+
+export interface ResultadoCampanha {
+  top_n: number;
+  ltv: number;
+  aceites_esperados: number;
+  salvos_esperados: number;
+  perdidos_sem_acao: number;
+  custo_esperado: number;
+  receita_preservada: number;
+  roi: number;
+  por_segmento: SegmentoCampanha[];
+}

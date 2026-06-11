@@ -38,6 +38,20 @@ A acao que ataca a dor do segmento converte mais - o agente nao sabe disso.
   por perfil (taxas estimadas vs custo de cada acao).
 - Endpoints: `/api/py/analista` e `/api/py/cliente/{id}` (autenticados).
 
+## 4. Ativacao simulada e resultado (interativo no dashboard)
+
+- **Oferta individual** (`POST /api/py/simular_oferta`): botao "Simular
+  envio da oferta" no painel do cliente. O aceite e sorteado com a taxa
+  REAL (oculta) do par segmento x acao. Aceitou -> cliente retido, risco
+  cai 60% (premissa documentada) e o custo e contabilizado; recusou ->
+  o analista pode tentar a proxima oferta na ordem aprendida pelo agente,
+  ate esgotar (encaminhamento manual).
+- **Campanha** (`GET /api/py/simular_campanha`): valor esperado de acionar
+  os top N riscos com a politica aprendida. Premissas: salvo = cancelaria
+  (prob do modelo) E aceita (taxa do simulador); custo so no aceite.
+  Exemplo (top 500, LTV R$600): ~395 cancelariam sem acao, ~211 salvos,
+  custo ~R$6,6 mil, receita preservada ~R$127 mil, ROI ~18x.
+
 ## Exemplo real do ciclo completo
 
 Cliente 3333054: risco 94,6% -> fator n.1 "Receita por minuto (preco pago)"
